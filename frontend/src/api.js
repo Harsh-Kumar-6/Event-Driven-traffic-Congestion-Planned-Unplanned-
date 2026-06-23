@@ -14,4 +14,6 @@ export const getRisk      = ()                  => api.get('/corridors/risk')
 export const getInsights  = ()                  => api.get('/insights')
 export const getHealth    = ()                  => api.get('/health')
 
-export default api
+export default api  
+
+

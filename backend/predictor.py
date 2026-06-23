@@ -4,6 +4,9 @@ import numpy as np
 from dataclasses import asdict
 from recommender import build_plan, DURATION_FALLBACK
 
+
+torch.set_num_threads(1)
+
 _gat_model    = None
 _xgb_model    = None
 _encoders     = None
