@@ -2,24 +2,26 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# System deps
 RUN apt-get update && apt-get install -y \
     gcc g++ curl git \
     && rm -rf /var/lib/apt/lists/*
 
-# PyTorch CPU — same version as your Colab (2.8.0) but CPU build
+# Install PyTorch CPU (no CUDA needed for inference on Railway)
 RUN pip install --no-cache-dir \
-    torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+    torch==2.3.0 --index-url https://download.pytorch.org/whl/cpu
 
-# PyG CPU wheels for torch 2.8.0
+# Install PyG CPU wheels
 RUN pip install --no-cache-dir \
-    torch-geometric \
-    torch-scatter torch-sparse torch-cluster torch-spline-conv \
-    -f https://data.pyg.org/whl/torch-2.8.0+cpu.html
+    torch-geometric==2.5.3 \
+    torch-scatter torch-sparse \
+    -f https://data.pyg.org/whl/torch-2.3.0+cpu.html
 
-# App dependencies
+# Install remaining deps
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy app code
 COPY . .
 
 EXPOSE 8000
