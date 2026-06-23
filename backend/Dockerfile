@@ -9,14 +9,14 @@ RUN apt-get update && apt-get install -y \
 
 # Install PyTorch CPU (no CUDA needed for inference on Railway)
 RUN pip install --no-cache-dir \
-    torch==2.3.0 --index-url https://download.pytorch.org/whl/cpu
+    torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
 
 # Install PyG CPU wheels
 RUN pip install --no-cache-dir \
     torch-geometric==2.5.3 \
     torch-scatter torch-sparse \
-    -f https://data.pyg.org/whl/torch-2.3.0+cpu.html
-
+    -f https://data.pyg.org/whl/torch-2.4.0+cpu.html
+    
 # Install remaining deps
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
